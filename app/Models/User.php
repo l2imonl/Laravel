@@ -58,4 +58,27 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function hasRole( ... $roles ) {
+
+        foreach ($roles as $role) {
+            if ($this->roles->contains('slug','admin')){
+                return true;
+            }
+            if ($this->roles->contains('slug', $role)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function roles() {
+
+        return $this->belongsToMany(Role::class,'users_roles');
+
+    }
+
+    public function posts(){
+        return $this->hasMany(Post::class, 'user_id');
+    }
 }

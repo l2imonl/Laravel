@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
+namespace Database\Seeders;
+
 use App\Models\Post;
+use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder
 {
@@ -12,8 +14,6 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-
-
         $post = new Post();
         $post->title = 'Lorem ipsum dolor sit';
         $post->body = '<p>Vivamus sollicitudin lobortis nulla sed scelerisque. Nam in augue eu ipsum rhoncus sodales non nec ante. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse auctor mollis ipsum ut varius. Vestibulum posuere sapien a efficitur ornare. Nunc vel nisl massa. Vestibulum semper eget nisi in iaculis. Vestibulum mauris lorem, laoreet a tempus nec, bibendum eget arcu. Proin ornare mauris et vulputate</p>
