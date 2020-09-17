@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,14 +18,53 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [BlogController::class, 'index']);
+
+Route::group(['middleware' => 'auth'], function () {
+
+    //Admin routes
+    Route::group(['middleware' => 'role:admin'], function () {
+
+        Route::post('post/viewpost/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
+
+    });
+
+    //Mod routes
+    Route::group(['middleware' => 'role:moderator'], function () {
+        Route::get('/post/viewposts', [PostController::class, 'index'])->name('post.index');
+        Route::get('/post/viewpost/{id}', [PostController::class, 'show'])->name('post.show');
+        Route::get('/post/editpost/{id}', [PostController::class, 'edit'])->name('post.edit');
+        Route::post('/post/updatepost/{id}', [PostController::class, 'update'])->name('post.update');
+        Route::post('/post/deletepost/{id}', [PostController::class, 'destroy'])->name('post.delete');
+
+        Route::get('/user/userlist', [UserController::class, 'index'])->name('user.index');
+        Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+        Route::post('/user/edit/{id}', [UserController::class, 'update'])->name('user.update');
+
+
+        Route::post('/userlist/update/{id}', [RoleController::class, 'update'])->name('role.update');
+
+
+    });
+
+    //Creator routes
+    Route::group(['middleware' => 'role:creator'], function () {
+        Route::get('/post/createpost', [PostController::class, 'create'])->name('post.create');
+        Route::post('/post/createpost', [PostController::class, 'store'])->name('post.store');
+    });
+
+    //User routes
+    Route::group(['middleware' => 'role:user'], function () {
+
+    });
+
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
-
+//Public routes
 Route::get('/blog', [BlogController::class, 'index' ])->name('blog.index');
 Route::get('/blog/single/{id}', [BlogController::class, 'show'])->name('blog.show');
+Route::post('/blog/single', [BlogController::class, 'store'])->name('comment.store');
+
+//auth Routes
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [BlogController::class, 'index'])->name('dashboard');
+

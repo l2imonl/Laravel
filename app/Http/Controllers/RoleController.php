@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class BlogController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,43 +16,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blog = Post::orderBy('created_at', 'desc')->paginate(4);
-        return view('blog/index', compact('blog'));
-    }
-
-
-    /**
-     * nächste Blog-Seite mit älteren Posts
-     * 4 Posts pro Seite. Wenn es keine Einträge mehr gibt, wird nen error geworfen
-     */
-    public function next( $id)
-    {
-        $post = Post::find($id);
-        $blog = Post::where('created_at', '<', $post->created_at)->orderBy('created_at', 'desc')->take(4)->get();
-
-        if ($blog->count() == 0) {
-            return back()->with('error', 'No older Posts');
-        }
-
-        return view('blog/index', compact('blog'));
-    }
-
-    /**
-     * nächste Blog-Seite mit älteren Posts
-     * 4 Posts pro Seite. Wenn es keine Einträge mehr gibt, wird nen error geworfen
-     * Einträge werden mit asc gesucht und mit Desc sortiert, damit sie auch richtig angezeigt werden
-     */
-    public function prev($id)
-    {
-        $post = Post::find($id);
-        $blog = Post::where('created_at', '>', $post->created_at)->orderBy('created_at', 'asc')->take(4)->get();
-        $blog = $blog->SortByDesc('created_at');
-
-        if ($blog->count() == 0) {
-            return back()->with('error', 'No new Posts');
-        }
-
-        return view('blog/index', compact('blog'));
+        //
     }
 
     /**
@@ -83,8 +48,7 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        $blog = Post::find($id);
-        return view('blog/single', compact('blog'));
+        //
     }
 
     /**
@@ -107,7 +71,23 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+
+        $role = Role::find($request->role_id);
+
+        if ($role->slug == 'admin' && !Auth::user()->hasRole('admin')) {
+            return back()->with('error', 'You need Admin Premissions');
+        } else {
+            if ($request->promote) {
+                $user->roles()->attach($role);
+            } else {
+                $user->roles()->detach($role);
+            }
+
+            $user->save();
+
+            return redirect(route('user.index'));
+        }
     }
 
     /**
@@ -120,6 +100,4 @@ class BlogController extends Controller
     {
         //
     }
-
 }
-

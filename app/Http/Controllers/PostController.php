@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -14,7 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $blog = Post::orderBy('created_at', 'desc')->paginate(5);
+        return view('admin/postlist', compact('blog'));
     }
 
     /**
@@ -24,62 +26,146 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $blog = Post::all();
+        return view('admin/createpost', compact('blog'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * speichern von neuem Post mit Image.
+     * Image Validierung und ablegen in Storage
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, array(
+            'title' => 'required|max:225',
+            'body' => 'required',
+        ));
+
+        $blog = new Post;
+        $blog->title = $request->title;
+        $blog->body = $request->body;
+        $blog->user_id = $request->user_id;
+        $blog->save();
+
+        //Image
+        if ($request->hasFile('image')) {
+
+            if ($request->file('image')->isValid()) {
+
+                $validated = $request->validate([
+                    'image' => 'mimes:jpeg,png|max:1014',
+                ]);
+                $extension = $request->image->extension();
+                $filename = uniqid(rand(), true);
+                $request->image->storeAs('/public', $filename . "." . $extension);
+                $url = Storage::url($filename . "." . $extension);
+                $file = File::create([
+                    'name' => $filename,
+                    'uri' => $url,
+                    'mime' => $extension,
+                    'post_id' => $blog->id
+                ]);
+                $file->save();
+                $blog->heading_image_id = $file->id;
+            } else {
+                return back()->with('error', 'Could not upload image');
+            }
+        }
+
+        $blog->save();
+
+        return redirect('blog');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $blog = Post::find($id);
+        return view('admin/showpost', compact('blog'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        $blog = Post::find($id);
+        return view('admin/editpost', compact('blog'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        //
+
+        $blog = Post::find($id);
+        $blog->title = $request->title;
+        $blog->body = $request->body;
+
+
+        //Image
+        if ($request->hasFile('image')) {
+
+            if ($request->file('image')->isValid()) {
+                $validated = $request->validate([
+                    'image' => 'mimes:jpeg,png|max:1014',
+                ]);
+                $extension = $request->image->extension();
+                $filename = uniqid(rand(), true) . "." . $extension;
+                $request->image->storeAs('/public', $filename);
+                $url = Storage::url($filename);
+                $file = File::create([
+                    'name' => $filename,
+                    'uri' => $url,
+                    'mime' => $extension,
+                    'post_id' => $blog->id,
+                ]);
+                $file->save();
+
+                if ($blog->heading_image_id){
+                    unlink(storage_path('app\public\\' . $blog->heading_image->name));
+                    $file = File::find($blog->heading_image->id);
+                    $file->delete();
+                }
+
+                $blog->heading_image_id = $file->id;
+            } else {
+                return back()->with('error', 'Could not upload image');
+            }
+        }
+
+        $blog->save();
+
+        return redirect(route('blog.show', compact('id')));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        $blog = Post::find($id);
+        $blog->delete();
+        return redirect('post/viewposts');
     }
 }

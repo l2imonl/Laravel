@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Comment;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -59,10 +60,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
-    public function hasRole( ... $roles ) {
+    public function hasRole(...$roles)
+    {
 
         foreach ($roles as $role) {
-            if ($this->roles->contains('slug','admin')){
+            if ($this->roles->contains('slug', 'admin')) {
                 return true;
             }
             if ($this->roles->contains('slug', $role)) {
@@ -72,13 +74,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return false;
     }
 
-    public function roles() {
+    public function roles()
+    {
 
-        return $this->belongsToMany(Role::class,'users_roles');
+        return $this->belongsToMany(Role::class, 'users_roles');
 
     }
 
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Post::class, 'user_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'user_id');
     }
 }
