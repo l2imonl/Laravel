@@ -12,10 +12,11 @@
 <body>
 
 
-@include('layouts/navbar-settings')
+@include('layouts.navbar-2')
 
 @yield('content')
 
+<hr/>
 @include('layouts.footer')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"/>
@@ -33,7 +34,13 @@
 <script>
 
     CKEDITOR.replace('summary-ckeditor');
-
+</script>
+{{--Script für mastheader--}}
+<script>
+    var loadFile = function (event) {
+        var masthead = document.getElementById('masthead');
+        masthead.setAttribute('style', 'background-image: url(' + URL.createObjectURL(event.target.files[0]) + ')');
+    }
 </script>
 </body>
 

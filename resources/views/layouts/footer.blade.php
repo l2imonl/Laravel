@@ -1,8 +1,9 @@
 <footer class="footer bg-dark">
     <div class="container">
+
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <ul class="list-inline text-center">
+                <ul class="list-inline text-center mt-4">
                     <li class="list-inline-item">
                         <a href="#">
                 <span class="fa-stack fa-lg">

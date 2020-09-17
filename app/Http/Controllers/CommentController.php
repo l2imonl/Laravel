@@ -32,7 +32,7 @@ class CommentController extends Controller
      * Erstellt Comment und attacht ihn auf den aktuellen Post
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -40,7 +40,7 @@ class CommentController extends Controller
             'body' => 'required|max:200',
         ));
 
-        if($request->creator){
+        if(!Auth::check()){
             return back()->with('error', 'Login first');
         }
 

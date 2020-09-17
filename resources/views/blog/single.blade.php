@@ -27,7 +27,7 @@
                         </div>
                     @endif
 
-                    <form method="post" action="{{ route('comment.store', $blog->id)}}">
+                    <form method="post" action="{{ route('comment.store')}}">
                         @csrf
 
                         @if(Auth::check())
@@ -36,7 +36,7 @@
 
                         <input type="hidden" name="post_id" value="{{$blog->id}}">
                         <textarea name="body" class="form-control"
-                                  rows="3"></textarea>
+                                  rows="3">{{old('body')}}</textarea>
                         <br>
                         <button type="submit" class="btn btn-info btn-primary">Submit</button>
                     </form>
@@ -51,15 +51,19 @@
                         <div class="media mb-4">
                             <div class="media-body">
                                 <h5 class="mt-0">{{ $comment->user->name }}</h5>
-                                {{ $comment->body }}
                                 @if(auth()->check() && auth()->user()->hasRole('admin'))
-                                    <form method="post" action="{{ route('comment.destroy', $comment->id) }}">
-                                        @csrf
-                                        <button type="submit" class="btn-sm btn-danger"><i class="fa fa-trash"
-                                                                                           aria-hidden="true"></i>
-                                        </button>
-                                    </form>
+                                    <div class="form-group">
+                                        <form method="post" action="{{ route('comment.destroy', $comment->id) }}">
+                                            @csrf
+                                            <button type="submit" class="btn-sm btn-danger fa-pull-right"><i class="fa fa-trash"
+                                                                                               aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 @endif
+                                <img src="{{$comment->user->profile_photo_url}}"
+                                     class="rounded-circle fa-pull-left mr-4">
+                                {{ $comment->body }}
                             </div>
                         </div>
                     @endforeach

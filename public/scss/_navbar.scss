@@ -3,9 +3,10 @@ nav{
     position: absolute;
     border-bottom: 1px solid $gray-200;
     background-color: white;
+    z-index: 1;
     @include sans-serif-font;
 }
-#mainNav {
+.mainNav {
   .navbar-brand {
     font-weight: 800;
     color: $gray-800;

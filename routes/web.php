@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
 //Public routes
 Route::get('/blog', [BlogController::class, 'index' ])->name('blog.index');
 Route::get('/blog/single/{id}', [BlogController::class, 'show'])->name('blog.show');
-Route::post('/blog/single', [BlogController::class, 'store'])->name('comment.store');
+Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.store');
 
 //auth Routes
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [BlogController::class, 'index'])->name('dashboard');

@@ -59,18 +59,14 @@ class PostController extends Controller
                 $validated = $request->validate([
                     'image' => 'mimes:jpeg,png|max:1014',
                 ]);
-                $extension = $request->image->extension();
-                $filename = uniqid(rand(), true);
-                $request->image->storeAs('/public', $filename . "." . $extension);
-                $url = Storage::url($filename . "." . $extension);
-                $file = File::create([
-                    'name' => $filename,
-                    'uri' => $url,
-                    'mime' => $extension,
-                    'post_id' => $blog->id
-                ]);
-                $file->save();
-                $blog->heading_image_id = $file->id;
+
+                $blog->updateHeadingImage($request->file('image'));
+
+//                $extension = $request->image->extension();
+//                $filename = uniqid(rand(), true);
+//                $request->image->storeAs('/public/post-header', $filename . "." . $extension);
+//                $url = Storage::url('public/post-header/' . $filename . "." . $extension);
+//                $blog->heading_image_path = $url;
             } else {
                 return back()->with('error', 'Could not upload image');
             }
@@ -119,7 +115,6 @@ class PostController extends Controller
         $blog->title = $request->title;
         $blog->body = $request->body;
 
-
         //Image
         if ($request->hasFile('image')) {
 
@@ -128,24 +123,15 @@ class PostController extends Controller
                     'image' => 'mimes:jpeg,png|max:1014',
                 ]);
                 $extension = $request->image->extension();
-                $filename = uniqid(rand(), true) . "." . $extension;
-                $request->image->storeAs('/public', $filename);
-                $url = Storage::url($filename);
-                $file = File::create([
-                    'name' => $filename,
-                    'uri' => $url,
-                    'mime' => $extension,
-                    'post_id' => $blog->id,
-                ]);
-                $file->save();
+                $filename = uniqid(rand(), true);
+                $request->image->storeAs('/public/post-header', $filename . "." . $extension);
+                $url = Storage::url('public/post-header/' . $filename . "." . $extension);
 
-                if ($blog->heading_image_id){
-                    unlink(storage_path('app\public\\' . $blog->heading_image->name));
-                    $file = File::find($blog->heading_image->id);
-                    $file->delete();
+                if ($blog->heading_image_path) {
+                    Storage::delete($blog->headin_image_path);
                 }
 
-                $blog->heading_image_id = $file->id;
+                $blog->heading_image_path = $url;
             } else {
                 return back()->with('error', 'Could not upload image');
             }

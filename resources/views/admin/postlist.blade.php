@@ -32,7 +32,7 @@
                         <tr>
                             <th>{{ $no++ }}</th>
                             <th>{{ $value->title }}</th>
-                            <td>{!! substr($value->body,0,40) !!} {{strlen($value->body) > 40 ? '...' : ''}}</td>
+                            <td>{!! substr($value->body,0,40) !!} {!!strlen($value->body) > 40 ? '...' : ''!!}</td>
                             <td>{{ date('M j, Y',strtotime($value->created_at)) }}</td>
                             <td>{{ $value->user->name }}</td>
                             <td class="text-center">{{ $value->comments->count() }}</td>

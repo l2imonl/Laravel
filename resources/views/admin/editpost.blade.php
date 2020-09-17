@@ -6,7 +6,6 @@
 
     @include('layouts/error')
 
-    @include('layouts/blog_masthead')
     <div class="container">
         <div class="col-lg-8 col-md-10 mx-auto">
             <form method="post" action="{{ route('post.update', $blog->id) }}" enctype="multipart/form-data">
@@ -35,10 +34,3 @@
         </div>
     </div>
 @endsection
-
-<script>
-    var loadFile = function (event){
-        var masthead = document.getElementById('masthead');
-        masthead.setAttribute('style', 'background-image: url(' + URL.createObjectURL(event.target.files[0])+ ')');
-    }
-</script>
