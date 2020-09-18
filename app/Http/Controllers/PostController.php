@@ -39,6 +39,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->flash();
 
         $this->validate($request, array(
             'title' => 'required|max:225',

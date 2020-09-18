@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Admin routes
     Route::group(['middleware' => 'role:admin'], function () {
 
-        Route::post('post/viewpost/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
+        Route::post('post/comment/delete', [CommentController::class, 'destroy'])->name('comment.destroy');
 
     });
 
@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/user/userlist', [UserController::class, 'index'])->name('user.index');
         Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
-        Route::post('/user/edit/{id}', [UserController::class, 'update'])->name('user.update');
+        Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
 
 
         Route::post('/userlist/update/{id}', [RoleController::class, 'update'])->name('role.update');
@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
 //Public routes
 Route::get('/blog', [BlogController::class, 'index' ])->name('blog.index');
 Route::get('/blog/single/{id}', [BlogController::class, 'show'])->name('blog.show');
-Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.store');
+Route::post('/blog/single/{id}', [CommentController::class, 'store'])->name('comment.store');
 
 //auth Routes
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [BlogController::class, 'index'])->name('dashboard');

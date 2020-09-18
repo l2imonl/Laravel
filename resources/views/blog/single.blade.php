@@ -27,7 +27,7 @@
                         </div>
                     @endif
 
-                    <form method="post" action="{{ route('comment.store')}}">
+                    <form method="post" action="{{ route('comment.store', $blog->id)}}">
                         @csrf
 
                         @if(Auth::check())
@@ -55,6 +55,7 @@
                                     <div class="form-group">
                                         <form method="post" action="{{ route('comment.destroy', $comment->id) }}">
                                             @csrf
+                                            <input type="hidden" name="post_id" value="{{$blog->id}}">
                                             <button type="submit" class="btn-sm btn-danger fa-pull-right"><i class="fa fa-trash"
                                                                                                aria-hidden="true"></i>
                                             </button>

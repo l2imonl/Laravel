@@ -1,8 +1,8 @@
-@extends('layouts.master')
+@extends('layouts.bloglayout')
 @section('title','Create Post')
 @section('content')
 
-    @include('layouts/error')
+    @include('layouts.error')
 
     <div class="container">
         <div class="col-lg-8 col-md-10 mx-auto">
@@ -19,11 +19,11 @@
                 <div class="form-group">
                     <label>Title</label>
                     <input type="title" name="title" class="form-control"
-                           onkeyUp="document.getElementById('masthead-h1').innerHTML = this.value"/>
+                           onkeyUp="document.getElementById('masthead-h1').innerHTML = this.value" value="{{old('title')}}"/>
                 </div>
                 <div class="form-group">
                     <label>Body</label>
-                    <textarea id="summary-ckeditor" name="body" class="form-control"></textarea>
+                    <textarea id="summary-ckeditor" name="body" class="form-control">{{old('body')}}</textarea>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block btn-info" type="submit">Post</button>

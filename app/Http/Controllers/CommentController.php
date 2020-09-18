@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +42,7 @@ class CommentController extends Controller
         ));
 
         if(!Auth::check()){
+            $request->flash();
             return back()->with('error', 'Login first');
         }
 
@@ -50,7 +52,9 @@ class CommentController extends Controller
         $comment->post_id = $request->post_id;
         $comment->save();
 
-        return redirect(route('blog.index'));
+        $blog = Post::find($request->post_id);
+
+        return redirect()->route('blog.show', [$blog]);
     }
 
     /**
@@ -99,6 +103,8 @@ class CommentController extends Controller
 
         $comment->delete();
 
-        return redirect(Request::url());
+        $blog = Post::find($request->post_id);
+
+        return redirect()->route('blog.show', [$blog]);
     }
 }

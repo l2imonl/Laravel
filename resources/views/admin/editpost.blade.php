@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.bloglayout')
 @section('title','Edit Post')
 @section('heading',$blog->title)
 @section('meta', 'Posted by ' . $blog->user->name . " on " . date('M j, Y', strtotime($blog->created_at)))
