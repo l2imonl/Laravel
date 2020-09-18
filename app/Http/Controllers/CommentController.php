@@ -38,7 +38,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, array(
-            'body' => 'required|max:200',
+            'body' => 'required',
         ));
 
         if(!Auth::check()){
@@ -54,7 +54,35 @@ class CommentController extends Controller
 
         $blog = Post::find($request->post_id);
 
-        return redirect()->route('blog.show', [$blog]);
+        return back();
+    }
+
+    /**
+     * Erstellt Comment und attacht ihn auf den aktuellen Post
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function replyStore(Request $request)
+    {
+        $this->validate($request, array(
+            'body' => 'required',
+        ));
+
+        if(!Auth::check()){
+            $request->flash();
+            return back()->with('error', 'Login first');
+        }
+
+        $comment = new Comment();
+        $comment->user_id = Auth::user()->id;
+        $comment->body = $request->body;
+        $comment->post_id = $request->post_id;
+        $comment->parent_id = $request->comment_id;
+        $comment->save();
+
+
+        return back();
     }
 
     /**
