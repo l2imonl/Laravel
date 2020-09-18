@@ -2,6 +2,7 @@
 @section('title','Postlist')
 @section('content')
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="container">
         <h1>Post List</h1>
 
@@ -25,11 +26,11 @@
                     </th>
                     </thead>
 
-                    <tbody>
+                    <tbody id="posts">
                     <?php $no = 1; ?>
                     @foreach($blog as $key => $value)
 
-                        <tr>
+                        <tr id="post {{$value->id}}">
                             <th>{{ $no++ }}</th>
                             <th>{{ $value->title }}</th>
                             <td>{!! substr($value->body,0,40) !!} {!!strlen($value->body) > 40 ? '...' : ''!!}</td>
@@ -47,12 +48,13 @@
                                     </a>
                                 @endif
                                 @if(auth()->check() && auth()->user()->hasRole('moderator'))
-                                    <form method="post" action="{{ route('post.delete', $value->id) }}">
-                                        @csrf
-                                        <button type="submit" class="btn-sm btn-danger"><i class="fas fa-trash"
-                                                                                           aria-hidden="true"></i>
-                                        </button>
-                                    </form>
+
+                                    <button id="deletePost"
+                                            class="btn-sm btn-danger fa-pull-right deleteComment"
+                                            data-id="{{ $value->id }}"><i
+                                            class="fa fa-trash"
+                                            aria-hidden="true"></i>
+                                    </button>
 
                                 @endif
                             </td>
@@ -66,7 +68,5 @@
                 <br/>
             </div>
         </div>
-
     </div>
-
 @endsection

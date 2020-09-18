@@ -20,12 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="812c3b5b-43cc-4450-8333-26117b70e512" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/js/deleteComment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/deletePost.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/masthead.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/createpost.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/createpost.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/editpost.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/editpost.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/postlist.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/postlist.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/blog/single.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/blog/single.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/bloglayout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/bloglayout.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +40,13 @@
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -212,7 +223,7 @@
       <workItem from="1600236855059" duration="1414000" />
       <workItem from="1600240093902" duration="22976000" />
       <workItem from="1600322849941" duration="26406000" />
-      <workItem from="1600410107793" duration="5430000" />
+      <workItem from="1600410107793" duration="13961000" />
     </task>
     <servers />
   </component>
@@ -275,9 +286,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="136" y="244" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1600242216281" />
-    <state x="1073" y="204" width="672" height="678" key="search.everywhere.popup" timestamp="1600414635446">
+    <state x="1073" y="204" width="672" height="678" key="search.everywhere.popup" timestamp="1600424710945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1073" y="204" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1600414635446" />
+    <state x="1073" y="204" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1600424710945" />
   </component>
 </project>

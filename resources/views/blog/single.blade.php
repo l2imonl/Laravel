@@ -3,7 +3,7 @@
 @section('heading',$blog->title)
 @section('meta', 'Posted by ' . $blog->user->name . " on " . date('M j, Y', strtotime($blog->created_at)))
 @section('content')
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <div class="container">
         <article>
@@ -46,21 +46,20 @@
             <hr/>
 
             <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
+                <div id="comments" class="col-lg-8 col-md-10 mx-auto">
                     @foreach($blog->comments as $comment)
-                        <div class="media mb-4">
+                        <div id="comment {{$comment->id}}" class="media mb-4">
                             <div class="media-body">
                                 <h5 class="mt-0">{{ $comment->user->name }}</h5>
                                 @if(auth()->check() && auth()->user()->hasRole('admin'))
-                                    <div class="form-group">
-                                        <form method="post" action="{{ route('comment.destroy', $comment->id) }}">
-                                            @csrf
-                                            <input type="hidden" name="post_id" value="{{$blog->id}}">
-                                            <button type="submit" class="btn-sm btn-danger fa-pull-right"><i class="fa fa-trash"
-                                                                                               aria-hidden="true"></i>
-                                            </button>
-                                        </form>
-                                    </div>
+
+                                    <button id="deleteComment"
+                                            class="btn-sm btn-danger fa-pull-right deleteComment"
+                                            data-id="{{ $comment->id }}"><i
+                                            class="fa fa-trash"
+                                            aria-hidden="true"></i>
+                                    </button>
+
                                 @endif
                                 <img src="{{$comment->user->profile_photo_url}}"
                                      class="rounded-circle fa-pull-left mr-4">
@@ -73,5 +72,4 @@
 
         </article>
     </div>
-
 @endsection

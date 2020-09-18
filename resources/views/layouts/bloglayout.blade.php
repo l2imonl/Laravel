@@ -29,19 +29,15 @@
         crossorigin="anonymous"></script>
 {{--Script für Navbar--}}
 <script src="{{ asset('js/clean-blog.min.js') }}"></script>
-
 {{--CKEditor--}}
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script>
     CKEDITOR.replace('summary-ckeditor');
 </script>
 {{--Script für mastheader--}}
-<script>
-    var loadFile = function (event) {
-        var masthead = document.getElementById('masthead');
-        masthead.setAttribute('style', 'background-image: url(' + URL.createObjectURL(event.target.files[0]) + ')');
-    }
-</script>
+<script src="{{asset('js/masthead.js')}}"></script>
+{{--Ajax Comment löschen--}}
+<script src="{{asset('js/deleteComment.js')}}"></script>
 
 </body>
 

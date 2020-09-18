@@ -39,7 +39,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->flash();
 
         $this->validate($request, array(
             'title' => 'required|max:225',
@@ -54,20 +53,8 @@ class PostController extends Controller
 
         //Image
         if ($request->hasFile('image')) {
-
             if ($request->file('image')->isValid()) {
-
-                $validated = $request->validate([
-                    'image' => 'mimes:jpeg,png|max:1014',
-                ]);
-
                 $blog->updateHeadingImage($request->file('image'));
-
-//                $extension = $request->image->extension();
-//                $filename = uniqid(rand(), true);
-//                $request->image->storeAs('/public/post-header', $filename . "." . $extension);
-//                $url = Storage::url('public/post-header/' . $filename . "." . $extension);
-//                $blog->heading_image_path = $url;
             } else {
                 return back()->with('error', 'Could not upload image');
             }
@@ -118,21 +105,8 @@ class PostController extends Controller
 
         //Image
         if ($request->hasFile('image')) {
-
             if ($request->file('image')->isValid()) {
-                $validated = $request->validate([
-                    'image' => 'mimes:jpeg,png|max:1014',
-                ]);
-                $extension = $request->image->extension();
-                $filename = uniqid(rand(), true);
-                $request->image->storeAs('/public/post-header', $filename . "." . $extension);
-                $url = Storage::url('public/post-header/' . $filename . "." . $extension);
-
-                if ($blog->heading_image_path) {
-                    Storage::delete($blog->headin_image_path);
-                }
-
-                $blog->heading_image_path = $url;
+                $blog->updateHeadingImage($request->file('image'));
             } else {
                 return back()->with('error', 'Could not upload image');
             }
@@ -151,8 +125,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $blog = Post::find($id);
-        $blog->delete();
-        return redirect('post/viewposts');
+        Post::find($id)->delete($id);
+        return response()->json(['success' => $id]);
     }
 }

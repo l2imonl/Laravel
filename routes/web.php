@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Admin routes
     Route::group(['middleware' => 'role:admin'], function () {
 
-        Route::post('post/comment/delete', [CommentController::class, 'destroy'])->name('comment.destroy');
+        Route::delete('/blog/single/comment/delete/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
 
     });
 
@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/post/viewpost/{id}', [PostController::class, 'show'])->name('post.show');
         Route::get('/post/editpost/{id}', [PostController::class, 'edit'])->name('post.edit');
         Route::post('/post/updatepost/{id}', [PostController::class, 'update'])->name('post.update');
-        Route::post('/post/deletepost/{id}', [PostController::class, 'destroy'])->name('post.delete');
+        Route::delete('/post/delete/{id}', [PostController::class, 'destroy'])->name('post.delete');
 
         Route::get('/user/userlist', [UserController::class, 'index'])->name('user.index');
         Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
