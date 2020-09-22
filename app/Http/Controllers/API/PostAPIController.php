@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Models\Role;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Http\Resources\Post as PostResource;
 
-class UserController extends Controller
+class PostAPIController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::sortable()->paginate(8);
-
-        $roles = Role::all();
-
-        return view('admin/userlist', compact('users', 'roles'));
+        //
     }
 
     /**
@@ -62,9 +58,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-
-        return  view('admin/useredit', compact('user'));
+        //
     }
 
     /**
@@ -76,15 +70,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
-
-        $users = User::all();
-        $roles = Role::all();
-
-        return redirect(route('user.index', compact('users', 'roles')));
+        //
     }
 
     /**
@@ -95,8 +81,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete($id);
-
-        return response()->json(['success' => $id]);
+        //
     }
 }

@@ -26,11 +26,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'role:admin'], function () {
 
         Route::delete('/blog/single/comment/delete/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
+        Route::delete('/user/delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
 
     });
 
     //Mod routes
     Route::group(['middleware' => 'role:moderator'], function () {
+
         Route::get('/post/viewposts', [PostController::class, 'index'])->name('post.index');
         Route::get('/post/viewpost/{id}', [PostController::class, 'show'])->name('post.show');
         Route::get('/post/editpost/{id}', [PostController::class, 'edit'])->name('post.edit');
@@ -41,9 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
         Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
 
-
         Route::post('/userlist/update/{id}', [RoleController::class, 'update'])->name('role.update');
-
 
     });
 

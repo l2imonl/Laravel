@@ -19,7 +19,8 @@
                 <div class="form-group">
                     <label>Title</label>
                     <input type="title" name="title" class="form-control"
-                           onkeyUp="document.getElementById('masthead-h1').innerHTML = this.value" value="{{old('title')}}"/>
+                           onkeyUp="document.getElementById('masthead-h1').innerHTML = this.value"
+                           value="{{old('title')}}"/>
                 </div>
                 <div class="form-group">
                     <label>Body</label>
@@ -32,5 +33,13 @@
         </div>
     </div>
 
+@endsection
+
+@section('script')
+    {{--CKEditor--}}
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('summary-ckeditor');
+    </script>
 @endsection
 

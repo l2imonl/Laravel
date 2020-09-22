@@ -2,7 +2,7 @@
 @section('title','Userlistt')
 @section('content')
     <div class="container">
-        <h1>User List</h1>
+        <h1 class="mt-2">User List</h1>
 
         @if ($message = Session::get('error'))
             <div class="alert alert-danger alert-block">
@@ -16,8 +16,8 @@
                 <table class="table table-hover">
 
                     <thead>
-                    <th>Username</th>
-                    <th>Email</th>
+                    <th>@sortablelink('name', 'Name')</th>
+                    <th>@sortablelink('email','E-mail')</th>
 
                     @foreach($roles as $role)
                         <th class="text-center"> {{ $role->name }} </th>
@@ -29,7 +29,7 @@
 
                     <tbody>
                     @foreach($users as $user)
-                        <tr>
+                        <tr id="user {{$user->id}}">
                             <th> {{$user->name}} </th>
                             <td> {{$user->email}} </td>
 
@@ -39,7 +39,7 @@
                                     @csrf
                                     <td class="text-center">
                                         <button type="submit" class="btn">
-                                            @if($user->hasRole($role->slug))
+                                            @if($user->hasrole($role->slug))
                                                 <input type="hidden" name="promote" value="0">
                                                 <i class="fas fa-star" aria-hidden="true"></i>
                                             @else
@@ -53,6 +53,18 @@
                             <td>
                                 <a href="{{ route('user.edit', $user->id) }}" class="btn-sm btn-warning"><i class="fas fa-pencil-alt"></i>
                                 </a>
+
+                                @if(auth()->check() && auth()->user()->hasrole('admin'))
+
+                                    <button id="deleteUser"
+                                            class="btn-sm btn-danger fa-pull-right deleteUser"
+                                            data-id="{{ $user->id }}"><i
+                                            class="fa fa-trash"
+                                            aria-hidden="true"></i>
+                                    </button>
+
+                                @endif
+
                             </td>
                         </tr>
                     @endforeach

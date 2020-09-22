@@ -1,18 +1,15 @@
 @extends('layouts.master')
 @section('title','Postlist')
 @section('content')
-
-
     <div class="container">
-        <h1>Post List</h1>
+        <h1 class="mt-2">Post List</h1>
 
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-hover">
 
                     <thead>
-                    <th>#</th>
-                    <th>Title</th>
+                    <th>@sortablelink('title','Title')</th>
                     <th>Body</th>
                     <th>Posted</th>
                     <th>Autor</th>
@@ -27,11 +24,9 @@
                     </thead>
 
                     <tbody id="posts">
-                    <?php $no = 1; ?>
                     @foreach($blog as $key => $value)
 
                         <tr id="post {{$value->id}}">
-                            <th>{{ $no++ }}</th>
                             <th>{{ $value->title }}</th>
                             <td>{!! substr($value->body,0,40) !!} {!!strlen($value->body) > 40 ? '...' : ''!!}</td>
                             <td>{{ date('M j, Y',strtotime($value->created_at)) }}</td>

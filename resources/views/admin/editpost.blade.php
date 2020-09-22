@@ -13,12 +13,14 @@
 
                 <div class="form-group text-center">
                     <label for="image"></label>
-                    <input id="image" type="file" name="image" value="{{$blog->heading_image}}" onchange="loadFile(event)">
+                    <input id="image" type="file" name="image" value="{{$blog->heading_image}}"
+                           onchange="loadFile(event)">
                 </div>
 
                 <div class="form-group">
                     <label>Title</label>
-                    <input id="title" type="title" name="title" class="form-control" value="{{ $blog->title }}" onkeyUp="document.getElementById('masthead-h1').innerHTML = this.value"/>
+                    <input id="title" type="title" name="title" class="form-control" value="{{ $blog->title }}"
+                           onkeyUp="document.getElementById('masthead-h1').innerHTML = this.value"/>
                 </div>
                 <div class="form-group">
                     <label>Body</label>
@@ -33,4 +35,12 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('scritps')
+    {{--CKEditor--}}
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('summary-ckeditor');
+    </script>
 @endsection

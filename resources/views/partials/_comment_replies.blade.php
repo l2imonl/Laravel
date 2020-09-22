@@ -13,8 +13,8 @@
 
             @endif
             <img src="{{$comment->user->profile_photo_url}}"
-                 class="rounded-circle fa-pull-left mr-4">
-            {{ $comment->body }}
+                 class="rounded-circle fa-pull-left mr-4 mb-4">
+            {!! $comment->body !!}
             <form method="post" action="{{ route('comment.replyStore', $blog->id)}}">
                 @csrf
                 <div class="form-group">

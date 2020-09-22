@@ -86,7 +86,7 @@ class RoleController extends Controller
 
             $user->save();
 
-            return redirect(route('user.index'));
+            return back();
         }
     }
 

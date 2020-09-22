@@ -38,8 +38,9 @@
 </script>
 {{--Script für mastheader--}}
 <script src="{{asset('js/masthead.js')}}"></script>
-{{--Ajax post löschen--}}
+{{--Ajax löschen--}}
 <script src="{{asset('js/deletePost.js')}}"></script>
+<script src="{{asset('js/deleteUser.js')}}"></script>
 </body>
 
 </html>

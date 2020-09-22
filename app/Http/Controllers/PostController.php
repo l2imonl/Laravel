@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $blog = Post::orderBy('created_at', 'desc')->paginate(5);
+        $blog = Post::sortable()->paginate(5);
         return view('admin/postlist', compact('blog'));
     }
 

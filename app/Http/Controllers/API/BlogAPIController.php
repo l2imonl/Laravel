@@ -1,25 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Models\Role;
-use App\Models\User;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\PostCollection;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Resources\Post as PostResource;
 
-class UserController extends Controller
+class BlogAPIController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return PostCollection|\Illuminate\Http\Response
      */
     public function index()
     {
-        $users = User::sortable()->paginate(8);
-
-        $roles = Role::all();
-
-        return view('admin/userlist', compact('users', 'roles'));
+        return new PostCollection(Post::orderBy('created_at', 'desc')->paginate(5));
     }
 
     /**
@@ -47,11 +45,10 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        return new PostResource(Post::find($id));
     }
 
     /**
@@ -62,9 +59,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-
-        return  view('admin/useredit', compact('user'));
+        //
     }
 
     /**
@@ -76,15 +71,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
-
-        $users = User::all();
-        $roles = Role::all();
-
-        return redirect(route('user.index', compact('users', 'roles')));
+        //
     }
 
     /**
@@ -95,8 +82,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete($id);
-
-        return response()->json(['success' => $id]);
+        //
     }
 }

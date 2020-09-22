@@ -5,11 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasHeaderImage;
+use Kyslik\ColumnSortable\Sortable;
 
 class Post extends Model
 {
     use HasFactory;
     use HasHeaderImage;
+    use Sortable;
+
+    public $sortable = [
+        'title',
+    ];
 
     public function user()
     {
