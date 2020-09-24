@@ -40,30 +40,8 @@
             <hr/>
 
             <div class="row">
-                <div id="comments" class="col-lg-8 col-md-10 mx-auto">
+                <div id="comments" class="col-lg-8 col-md-10 mx-auto rounded" style="background-color: rgba(203, 209, 208, 0.25)">
                     @include('partials._comment_replies', ['comments' => $blog->comments, 'post_id' => $blog->id])
-
-{{--                    @foreach($blog->comments as $comment)--}}
-{{--                        <div id="comment {{$comment->id}}" class="media mb-4">--}}
-{{--                            <div class="media-body">--}}
-{{--                                <h5 class="mt-0">{{ $comment->user->name }}</h5>--}}
-{{--                                @if(auth()->check() && auth()->user()->hasRole('admin'))--}}
-
-{{--                                    <button id="deleteComment"--}}
-{{--                                            class="btn-sm btn-danger fa-pull-right deleteComment"--}}
-{{--                                            data-id="{{ $comment->id }}"><i--}}
-{{--                                            class="fa fa-trash"--}}
-{{--                                            aria-hidden="true"></i>--}}
-{{--                                    </button>--}}
-
-{{--                                @endif--}}
-{{--                                <img src="{{$comment->user->profile_photo_url}}"--}}
-{{--                                     class="rounded-circle fa-pull-left mr-4">--}}
-{{--                                {{ $comment->body }}--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    @endforeach--}}
-
                 </div>
             </div>
 

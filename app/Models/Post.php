@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasHeaderImage;
 use Kyslik\ColumnSortable\Sortable;
+use App\Traits\HtmlTrim;
 
 class Post extends Model
 {
     use HasFactory;
     use HasHeaderImage;
     use Sortable;
+    use HtmlTrim;
 
     public $sortable = [
         'title',

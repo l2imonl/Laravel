@@ -4,22 +4,20 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CommentCollection;
-use App\Http\Resources\PostCollection;
-use App\Models\Comment;
-use App\Models\Post;
 use Illuminate\Http\Request;
-use App\Http\Resources\Post as PostResource;
+use App\Models\Comment;
+use App\Http\Resources\Comment as CommentResource;
 
-class BlogAPIController extends Controller
+
+class CommentAPIController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return PostCollection|\Illuminate\Http\Response
      */
     public function index()
     {
-        return new PostCollection(Post::orderBy('created_at', 'desc')->paginate(5));
+        return new CommentCollection(Comment::whereNotNull('post_id')->get());
     }
 
     /**
@@ -47,13 +45,11 @@ class BlogAPIController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return response()->json([
-          'posts' => new PostResource(Post::find($id)),
-          'comments' => new CommentCollection(Post::find($id)->comments),
-        ]);
+        //
     }
 
     /**
@@ -88,5 +84,9 @@ class BlogAPIController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function comments($id){
+
     }
 }

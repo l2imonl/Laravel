@@ -6541,3 +6541,9 @@ body {
   /* Vertically center the text there */
 }
 
+.profile-photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+

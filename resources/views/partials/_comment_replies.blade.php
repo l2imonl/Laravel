@@ -1,6 +1,6 @@
 @foreach($comments as $comment)
     <div id="comment {{$comment->id}}" class="media">
-        <div class="media-body">
+        <div class="media-body px-2">
             <h5 class="mt-0">{{ $comment->user->name }}</h5>
             @if(auth()->check() && auth()->user()->hasRole('admin'))
 
@@ -13,7 +13,7 @@
 
             @endif
             <img src="{{$comment->user->profile_photo_url}}"
-                 class="rounded-circle fa-pull-left mr-4 mb-4">
+                 class="profile-photo fa-pull-left mr-4 mb-2">
             {!! $comment->body !!}
             <form method="post" action="{{ route('comment.replyStore', $blog->id)}}">
                 @csrf
@@ -26,7 +26,7 @@
                     <input type="submit" class="btn" value="Reply"/>
                 </div>
             </form>
-            <div class="mb-4 ml-4">
+            <div class="mb-4 ml-4 rounded" style="background-color: rgba(223, 229, 232, 1)">
                 @include('partials._comment_replies', ['comments' => $comment->replies])
             </div>
         </div>

@@ -14,7 +14,7 @@
                     <article class="post-preview">
                         <a href="{{ route('blog.show', $value->id) }}">
                             <h2 class="post-title">{{ $value->title }}</h2>
-                            <h3 class="post-subtitle">{!! substr($value->body,0,200) !!}</h3>
+                            <h3 class="post-subtitle">{!! ($value->HtmlTrim($value->body,300)) !!}</h3>
                         </a>
                         <p class="post-meta">
                             Posted by <strong>{{ $value->user->name }}</strong> on

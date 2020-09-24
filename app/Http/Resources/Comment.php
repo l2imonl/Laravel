@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use PhpParser\Node\Stmt\If_;
 
 class Comment extends JsonResource
 {
@@ -14,11 +15,20 @@ class Comment extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'name' => $this->name,
-            'body' => $this->body,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ];
+        if ($request->replies){
+            return [
+                'name' => $this->user->name,
+                'body' => $this->body,
+                'replies' => new CommentCollection($this->replies),
+                'created_at' => $this->created_at,
+            ];
+        }else{
+            return [
+                'name' => $this->user->name,
+                'body' => $this->body,
+                'created_at' => $this->created_at,
+            ];
+        }
+
     }
 }

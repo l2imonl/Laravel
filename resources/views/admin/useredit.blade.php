@@ -3,6 +3,9 @@
 @section('content')
     <div class="container">
         <div class="col-lg-8 col-md-10 mx-auto">
+
+            <h1 class="my-4">User Edit</h1>
+
             <form method="post" action="{{ route('user.update', $user->id) }}">
                 @csrf
                 <div class="form-group">
@@ -16,9 +19,6 @@
                 <div class="form-group">
                     <input type="submit" name="updatepost" class="btn btn-success btn-lg btn-block btn-info"
                            value="Edit"/>
-                </div>
-                <div class="form-group">
-                    <a href="{{ URL::previous() }}">Back</a>
                 </div>
             </form>
         </div>

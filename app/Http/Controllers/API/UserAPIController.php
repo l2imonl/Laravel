@@ -7,9 +7,11 @@ use App\Http\Resources\UserCollection;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\User as UserResource;
+use Illuminate\Support\Facades\Auth;
 
 class UserAPIController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +21,18 @@ class UserAPIController extends Controller
     {
         return new UserCollection(User::paginate(5));
     }
+
+    public function login()
+    {
+        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
+            $user = Auth::user();
+            $accessToken = Auth::user()->createToken('authToken'.$user->name)->plainTextToken;
+            return response()->json(['user' => $user, 'success' => $accessToken]);
+        } else {
+            return response()->json(['error' => 'Unauthorised'], 401);
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -33,7 +47,7 @@ class UserAPIController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -44,7 +58,7 @@ class UserAPIController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      */
     public function show($id)
     {
@@ -54,7 +68,7 @@ class UserAPIController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -65,8 +79,8 @@ class UserAPIController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -77,7 +91,7 @@ class UserAPIController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
