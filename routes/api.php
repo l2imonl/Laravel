@@ -21,20 +21,40 @@ use App\Http\Resources\UserCollection;
 */
 
 
-Route::get('/blog', [BlogAPIController::class, 'index'])->name('api.blog.index');
-Route::get('/blog/single/{id}', [BlogAPIController::class, 'show'])->name('api.blog.show');
+Route::group(['middleware' => 'myTokenCheck'], function () {
 
-Route::get('/comments', [CommentAPIController::class, 'index'])->name('api.comment.index');
+    //Admin routes
+    Route::group(['middleware' => 'apiRole:admin'], function () {
+        Route::delete('/comment/delete', [CommentAPIController::class, 'destroy'])->name('api.comment.destroy');
+        Route::delete('/user/delete', [UserAPIController::class, 'destroy'])->name('api.user.delete');
+    });
 
-Route::post('/post/store', [PostAPIController::class, 'store'])->name('api.post.store');
+    //Mod routes
+    Route::group(['middleware' => 'apiRole:moderator'], function () {
 
-Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::get('/posts', [PostAPIController::class, 'index'])->name('api.post.index');
+        Route::get('/post/{id}', [PostAPIController::class, 'show'])->name('api.post.show');
+        Route::post('/post/updatepost/{id}', [PostAPIController::class, 'update'])->name('api.post.update');
+        Route::delete('/post/delete', [PostAPIController::class, 'destroy'])->name('api.post.delete');
 
-    Route::group(['middleware' => 'role:admin'], function () {
-        Route::get('/userlist', [UserAPIController::class, 'index'])->name('api.user.index');
-        Route::get('/user/show/{id}', [UserAPIController::class, 'show'])->name('api.user.show');
+        Route::get('/comments', [CommentAPIController::class, 'index'])->name('api.comment.index');
+
+        Route::get('/users', [UserAPIController::class, 'index'])->name('api.user.index');
+        Route::get('/user/{id}', [UserAPIController::class, 'show'])->name('api.user.show');
+        Route::post('/user/update/{id}', [UserAPIController::class, 'update'])->name('api.user.update');
+        Route::post('/user/updaterole/{id}', [UserAPIController::class, 'updateRole'])->name('api.user.updaterole');
+
+    });
+
+    Route::group(['middleware' => 'apiRole:creator'], function () {
+
+        Route::post('/post/store', [PostAPIController::class, 'store'])->name('api.post.store');
+
     });
 
 });
 
+//public routes
 Route::post('/login', [UserAPIController::class, 'login'])->name('api.user.login');
+Route::get('/blog', [BlogAPIController::class, 'index'])->name('api.blog.index');
+Route::get('/blog/single/{id}', [BlogAPIController::class, 'show'])->name('api.blog.show');

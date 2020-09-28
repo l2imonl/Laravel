@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use App\Extensions\MyTokenGuard;
+use App\Extensions\TokenToUserProvider;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Sanctum\Sanctum;
+use App\Models\MyToken;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +30,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+
     }
 }

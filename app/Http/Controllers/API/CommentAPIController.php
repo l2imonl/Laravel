@@ -17,7 +17,14 @@ class CommentAPIController extends Controller
      */
     public function index()
     {
-        return new CommentCollection(Comment::whereNotNull('post_id')->get());
+        if (Comment::whereNotNull('post_id')->get()){
+            return new CommentCollection(Comment::whereNotNull('post_id')->get());
+        }else{
+            return response()->json([
+               'failed' => 'can\'t find any comments',
+            ]);
+        }
+
     }
 
     /**
@@ -78,12 +85,23 @@ class CommentAPIController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|void
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $comment = Comment::find($request->id);
+        if ($comment){
+            $comment->delete();
+            return response()->json([
+               'success' => 'comment deleted',
+               'comment' => $comment,
+            ]);
+        }else{
+            return response()->json([
+                'failed' => 'cant\'t find comment',
+            ]);
+        }
     }
 
     public function comments($id){

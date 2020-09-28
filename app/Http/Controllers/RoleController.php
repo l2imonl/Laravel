@@ -67,7 +67,7 @@ class RoleController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -76,7 +76,7 @@ class RoleController extends Controller
         $role = Role::find($request->role_id);
 
         if ($role->slug == 'admin' && !Auth::user()->hasRole('admin')) {
-            return back()->with('error', 'You need Admin Premissions');
+            return back()->with('error', 'You need Admin Permissions');
         } else {
             if ($request->promote) {
                 $user->roles()->attach($role);

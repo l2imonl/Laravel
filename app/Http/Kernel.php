@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\APIRoleCheck;
+use App\Http\Middleware\MyTokenCheck;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -63,5 +65,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => \App\Http\Middleware\RoleMiddleware::class,
+        'myTokenCheck' => MyTokenCheck::class,
+        'apiRole' => APIRoleCheck::class,
     ];
 }

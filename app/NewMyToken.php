@@ -1,4 +1,5 @@
 <?php
+namespace App;
 
 use App\Models\MyToken;
 use Illuminate\Contracts\Support\Arrayable;

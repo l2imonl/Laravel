@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasHeaderImage;
 use Kyslik\ColumnSortable\Sortable;
 use App\Traits\HtmlTrim;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
@@ -14,6 +15,7 @@ class Post extends Model
     use HasHeaderImage;
     use Sortable;
     use HtmlTrim;
+    use SoftDeletes;
 
     public $sortable = [
         'title',

@@ -20,6 +20,8 @@ class CreatePostsTable extends Migration
             $table->string('heading_image_path')->nullable();
             $table->timestamps();
             $table->integer('user_id')->nullable();
+
+            $table->softDeletes();
         });
     }
 

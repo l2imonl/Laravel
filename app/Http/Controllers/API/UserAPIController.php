@@ -19,14 +19,21 @@ class UserAPIController extends Controller
      */
     public function index()
     {
-        return new UserCollection(User::paginate(5));
+        if(User::paginate(5)){
+            return new UserCollection(User::paginate(5));
+        }else{
+            return response()->json([
+               'failed' => 'can\'t paginate Users',
+            ]);
+        }
+
     }
 
     public function login()
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $accessToken = Auth::user()->createToken('authToken'.$user->name)->plainTextToken;
+            $accessToken = Auth::user()->createMyToken('authToken'.$user->name)->plainTextToken;
             return response()->json(['user' => $user, 'success' => $accessToken]);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
@@ -58,11 +65,19 @@ class UserAPIController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param Request $request
+     * @return UserResource|\Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        return new UserResource(User::find($id));
+        if(User::find($request->id)){
+            return new UserResource(User::find($request->id));
+        }else{
+            return response()->json([
+               'failed' => 'can\'t find user',
+            ]);
+        }
+
     }
 
     /**
@@ -85,17 +100,52 @@ class UserAPIController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        if($user){
+            $return = ['success' => 'user updated',
+                'old-user' => new UserResource($user),];
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->save();
+            $return+=['new-user' => new UserResource($user),];
+
+            return $return;
+        }else{
+
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        if (User::onlyTrashed()->where('id', $request->id)->exists()){
+            return response()->json([
+                'failed' => 'user is already deleted',
+            ]);
+        }
+        $user = User::find($request->id);
+        if($user){
+            $user->delete();
+            return response()->json([
+                'access' => 'user deleted',
+                'user' => $user,
+            ]);
+        }else{
+            return response()->json([
+                'failed' => 'can\'t finde user',
+                'user' => $user,
+            ]);
+        }
+    }
+    /**
+     * update role from specified user
+     */
+    public function updateRole(Request $request, $id){
+        $user = User::find($id);
     }
 }

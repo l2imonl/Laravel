@@ -37,13 +37,23 @@ class MyToken extends Model
     ];
 
     /**
-     * Get the tokenable model that the access token belongs to.
+     * Get the model that the access token belongs to.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function owner_id()
+    public function tokenable()
     {
-        return $this->morphTo('owner_id');
+        return $this->morphTo();
+    }
+
+    /**
+     * Find the token instance matching the given token.
+     *
+     * @param string $token
+     * @return static|null
+     */
+    public static function findToken($token)
+    {
+        return static::where('token', hash('sha256', $token))->first();
     }
 
 }
