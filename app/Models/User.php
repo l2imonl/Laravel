@@ -70,6 +70,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
+    public function setRolesAttribute($value)
+    {
+        if($this->roles()->count()){
+            $this->roles()->attach('3');
+        }else{
+            $this->roles()->attach($value);
+        }
+    }
+
     public function hasRole(...$roles)
     {
 
@@ -83,7 +92,6 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return false;
     }
-
 
     public function roles()
     {

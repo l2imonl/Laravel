@@ -4,9 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CommentCollection;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Http\Resources\Comment as CommentResource;
+use Illuminate\Support\Facades\Auth;
 
 
 class CommentAPIController extends Controller
@@ -17,11 +19,11 @@ class CommentAPIController extends Controller
      */
     public function index()
     {
-        if (Comment::whereNotNull('post_id')->get()){
+        if (Comment::whereNotNull('post_id')->get()) {
             return new CommentCollection(Comment::whereNotNull('post_id')->get());
-        }else{
+        } else {
             return response()->json([
-               'failed' => 'can\'t find any comments',
+                'failed' => 'can\'t find any comments',
             ]);
         }
 
@@ -40,18 +42,38 @@ class CommentAPIController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, array(
+            'body' => 'required',
+        ));
+
+        if (!Auth::check()) {
+            return response()->json([
+                'faild' => 'login first',
+            ]);
+        }
+
+        $comment = new Comment();
+        $comment->user_id = Auth::user()->id;
+        $comment->body = $request->body;
+        $comment->post_id = $request->post_id;
+        $comment->parent_id = $request->parent_id;
+        $comment->save();
+
+        return response()->json([
+            'success' => 'comment created',
+            'comment' => new CommentResource($comment)
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -62,7 +84,7 @@ class CommentAPIController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -73,8 +95,8 @@ class CommentAPIController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -91,20 +113,21 @@ class CommentAPIController extends Controller
     public function destroy(Request $request)
     {
         $comment = Comment::find($request->id);
-        if ($comment){
+        if ($comment) {
             $comment->delete();
             return response()->json([
-               'success' => 'comment deleted',
-               'comment' => $comment,
+                'success' => 'comment deleted',
+                'comment' => $comment,
             ]);
-        }else{
+        } else {
             return response()->json([
                 'failed' => 'cant\'t find comment',
             ]);
         }
     }
 
-    public function comments($id){
+    public function comments($id)
+    {
 
     }
 }

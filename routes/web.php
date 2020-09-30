@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BlogController::class, 'index']);
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
 
     //Admin routes
     Route::group(['middleware' => 'role:admin'], function () {

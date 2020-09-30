@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Http\Resources\Post as PostResource;
+use Illuminate\Support\Facades\Auth;
 use function MongoDB\BSON\toJSON;
 
 class PostAPIController extends Controller
@@ -51,25 +52,26 @@ class PostAPIController extends Controller
             'body' => 'required',
         ]);
 
-        $blog = new Post;
-        $blog->title = $request->title;
-        $blog->body = $request->body;
-        $blog->user_id = $request->user_id;
-        $blog->save();
+        $post = new Post;
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->user_id = Auth::user()->id;
+        $post->save();
 
         //Image
         if ($request->hasFile('image')) {
             if ($request->file('image')->isValid()) {
-                $blog->updateHeadingImage($request->file('image'));
+                $post->updateHeadingImage($request->file('image'));
             } else {
                 return back()->with('error', 'Could not upload image');
             }
         }
 
-        $blog->save();
+        $post->save();
 
         return response()->json([
-           'success' => 'post '.$blog->id.' created',
+           'success' => 'post '.$post->id.' created',
+            'post' => new PostResource($post),
         ]);
 
     }
@@ -78,7 +80,7 @@ class PostAPIController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     * @return PostResource|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function show($id)
     {

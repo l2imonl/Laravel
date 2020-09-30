@@ -4,7 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserCollection;
+use App\Models\MyToken;
+use App\Models\Role;
 use App\Models\User;
+use Exception;
+use http\Env\Response;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\Auth;
@@ -19,11 +24,11 @@ class UserAPIController extends Controller
      */
     public function index()
     {
-        if(User::paginate(5)){
+        if (User::paginate(5)) {
             return new UserCollection(User::paginate(5));
-        }else{
+        } else {
             return response()->json([
-               'failed' => 'can\'t paginate Users',
+                'failed' => 'can\'t paginate Users',
             ]);
         }
 
@@ -33,13 +38,37 @@ class UserAPIController extends Controller
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $accessToken = Auth::user()->createMyToken('authToken'.$user->name)->plainTextToken;
+            $accessToken = Auth::user()->createToken('authToken' . $user->name)->plainTextToken;
             return response()->json(['user' => $user, 'success' => $accessToken]);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
     }
 
+    public function register(Request $request)
+    {
+
+        $this->validate(request(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        event(new Registered($user = User::create(['name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->pasword)])));
+
+
+//        $user = User::create(['name' => $request->name,
+//            'email' => $request->email,
+//            'password' => bcrypt($request->pasword)]);
+//        $user->roles()->attach(3);
+
+        return response()->json([
+            'success' => 'User created',
+            'newUser' => new UserResource($user),
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -70,11 +99,11 @@ class UserAPIController extends Controller
      */
     public function show(Request $request)
     {
-        if(User::find($request->id)){
+        if (User::find($request->id)) {
             return new UserResource(User::find($request->id));
-        }else{
+        } else {
             return response()->json([
-               'failed' => 'can\'t find user',
+                'failed' => 'can\'t find user',
             ]);
         }
 
@@ -96,22 +125,24 @@ class UserAPIController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return UserResource[]|array|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        if($user){
-            $return = ['success' => 'user updated',
-                'old-user' => new UserResource($user),];
+        if ($user) {
             $user->name = $request->name;
             $user->email = $request->email;
             $user->save();
-            $return+=['new-user' => new UserResource($user),];
 
-            return $return;
-        }else{
-
+            return response()->json([
+                'success' => 'user updated',
+                'user' => new UserResource($user)
+            ]);
+        } else {
+            return response()->json([
+                'failed' => 'can\'t finde user',
+            ]);
         }
     }
 
@@ -123,29 +154,78 @@ class UserAPIController extends Controller
      */
     public function destroy(Request $request)
     {
-        if (User::onlyTrashed()->where('id', $request->id)->exists()){
+        if (User::onlyTrashed()->where('id', $request->id)->exists()) {
             return response()->json([
                 'failed' => 'user is already deleted',
             ]);
         }
         $user = User::find($request->id);
-        if($user){
+        if ($user) {
             $user->delete();
             return response()->json([
                 'access' => 'user deleted',
                 'user' => $user,
             ]);
-        }else{
+        } else {
             return response()->json([
                 'failed' => 'can\'t finde user',
                 'user' => $user,
             ]);
         }
     }
+
     /**
      * update role from specified user
      */
-    public function updateRole(Request $request, $id){
+    public function updateRole(Request $request, $id)
+    {
         $user = User::find($id);
+
+        $role = Role::find($request->role_id);
+
+        if ($role->slug == 'admin' && !Auth::user()->hasRole('admin')) {
+            return response()->json([
+                'failed' => 'you need Admin Permissions',
+            ]);
+        } else {
+            try {
+                if ($request->promote) {
+                    $user->roles()->attach($role);
+                } else {
+                    $user->roles()->detach($role);
+                }
+            } catch (Exception $e) {
+                return response()->json([
+                    'error' => $e,
+                ]);
+            }
+
+            $user->save();
+
+            return response()->json([
+                'accept' => 'Role updated',
+                'promoted' => $request->promote,
+                'user' => $user,
+                'role' => $role,
+            ]);
+        }
     }
+
+//    private function getTokenFromRequest(Request $request)
+//    {
+//        $token = $request->query('token');
+//        if (empty($token)) {
+//            $token = $request->input('token');
+//        }
+//        if (empty($token)) {
+//            $token = $request->bearerToken();
+//        }
+//        return $token;
+//    }
+//
+//    private function getUserFromToken($token)
+//    {
+//        $token = per::findToken($token);
+//        return $token->tokenable;
+//    }
 }

@@ -20,33 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="812c3b5b-43cc-4450-8333-26117b70e512" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Extensions/MyTokenGuard.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Extensions/TokenToUserProvider.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/APIRoleCheck.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/MyTokenCheck.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Traits/HasMyTokens.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/jetstream.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/CommentAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/CommentAPIController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/UserAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/UserAPIController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RoleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RoleMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RoleMiddleware.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Comment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/MyToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/MyToken.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Role.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/NewMyToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/NewMyToken.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/HasMyToken.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_16_115554_create_posts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_16_115554_create_posts_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_16_134340_create_roles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_16_134340_create_roles_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_17_063850_create_comments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_17_063850_create_comments_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_24_065636_create_my_tokens_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_24_065636_create_my_tokens_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,7 +249,9 @@
       <workItem from="1600928500845" duration="21216000" />
       <workItem from="1601015276616" duration="19250000" />
       <workItem from="1601273799424" duration="11000" />
-      <workItem from="1601273840329" duration="20942000" />
+      <workItem from="1601273840329" duration="21301000" />
+      <workItem from="1601361060721" duration="22912000" />
+      <workItem from="1601449742136" duration="8008000" />
     </task>
     <servers />
   </component>
@@ -308,6 +294,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="667" y="163" key="#PHP/0.0.1920.1040@0.0.1920.1040" timestamp="1600761390041" />
+    <state x="277" y="309" key="#Web_Browsers" timestamp="1601364573334">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="277" y="309" key="#Web_Browsers/0.0.1920.1040@0.0.1920.1040" timestamp="1601364573334" />
     <state x="740" y="225" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1600261935337">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -316,10 +306,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="808" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600945839879" />
-    <state x="676" y="290" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1601298688986">
+    <state x="676" y="290" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1601452092975">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="676" y="290" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601298688986" />
+    <state x="676" y="290" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601452092975" />
     <state x="629" y="298" width="662" height="479" key="EditFileWatcherDialog" timestamp="1600261938400">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -364,9 +354,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="136" y="244" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1600936244076" />
-    <state x="1073" y="204" width="672" height="678" key="search.everywhere.popup" timestamp="1601300299020">
+    <state x="1073" y="204" width="672" height="678" key="search.everywhere.popup" timestamp="1601456826695">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1073" y="204" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601300299020" />
+    <state x="1073" y="204" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601456826695" />
   </component>
 </project>

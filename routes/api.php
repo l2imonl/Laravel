@@ -21,16 +21,16 @@ use App\Http\Resources\UserCollection;
 */
 
 
-Route::group(['middleware' => 'myTokenCheck'], function () {
+Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
 
     //Admin routes
-    Route::group(['middleware' => 'apiRole:admin'], function () {
+    Route::group(['middleware' => 'role:admin'], function () {
         Route::delete('/comment/delete', [CommentAPIController::class, 'destroy'])->name('api.comment.destroy');
         Route::delete('/user/delete', [UserAPIController::class, 'destroy'])->name('api.user.delete');
     });
 
     //Mod routes
-    Route::group(['middleware' => 'apiRole:moderator'], function () {
+    Route::group(['middleware' => 'role:moderator'], function () {
 
         Route::get('/posts', [PostAPIController::class, 'index'])->name('api.post.index');
         Route::get('/post/{id}', [PostAPIController::class, 'show'])->name('api.post.show');
@@ -46,15 +46,26 @@ Route::group(['middleware' => 'myTokenCheck'], function () {
 
     });
 
-    Route::group(['middleware' => 'apiRole:creator'], function () {
-
+    //Creator routes
+    Route::group(['middleware' => 'role:creator'], function () {
         Route::post('/post/store', [PostAPIController::class, 'store'])->name('api.post.store');
+    });
+
+    //user routes
+    Route::group(['middleware' => 'role:user'], function () {
 
     });
+
+    Route::post('/comment/store', [CommentAPIController::class, 'store'])->name('api.comment.store');
 
 });
 
 //public routes
 Route::post('/login', [UserAPIController::class, 'login'])->name('api.user.login');
 Route::get('/blog', [BlogAPIController::class, 'index'])->name('api.blog.index');
+
 Route::get('/blog/single/{id}', [BlogAPIController::class, 'show'])->name('api.blog.show');
+Route::post('/register', [UserAPIController::class, 'register'])->name('api.user.register');
+
+
+

@@ -52,8 +52,6 @@ class CommentController extends Controller
         $comment->post_id = $request->post_id;
         $comment->save();
 
-        $blog = Post::find($request->post_id);
-
         return back();
     }
 
