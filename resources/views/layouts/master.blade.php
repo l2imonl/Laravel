@@ -14,7 +14,6 @@
 
 <body>
 
-
 @include('layouts.navbar-2')
 
 @yield('content')
@@ -41,6 +40,8 @@
 {{--Ajax löschen--}}
 <script src="{{asset('js/deletePost.js')}}"></script>
 <script src="{{asset('js/deleteUser.js')}}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
+
 </body>
 
 </html>

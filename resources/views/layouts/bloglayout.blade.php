@@ -42,6 +42,8 @@
 {{--Ajax Comment löschen--}}
 <script src="{{asset('js/deleteComment.js')}}"></script>
 
+<script src="{{ mix('js/app.js') }}"></script>
+
 </body>
 
 </html>

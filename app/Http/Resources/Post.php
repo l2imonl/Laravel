@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\User as UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Traits\HtmlTrim;
 
@@ -17,7 +18,8 @@ class Post extends JsonResource
      */
     public function toArray($request)
     {
-        $return = ['title' => $this->title,];
+        $return = ['id' => $this->id,
+            'title' => $this->title,];
 
         if ($request->trim) {
             $return += [
@@ -40,7 +42,12 @@ class Post extends JsonResource
             }
 
         }
-        $return += ['created_at' => $this->created_at,];
+        if($request->user){
+            $return += [
+              'user' => new UserResource($this->user),
+            ];
+        }
+        $return += ['created_at' => date('d.m.Y', strtotime($this->created_at)),];
         return $return;
     }
 }
