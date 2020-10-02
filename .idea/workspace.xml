@@ -20,18 +20,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="812c3b5b-43cc-4450-8333-26117b70e512" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Blog/index.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Blog/single.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/scss/_loading.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/BlogAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/BlogAPIController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/CommentAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/CommentAPIController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/cool.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/cool.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scss/clean-blog.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/scss/clean-blog.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Blog/single.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Blog/single.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/blog/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/blog/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/bloglayout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/bloglayout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/partials/_comment_replies.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/_comment_replies.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/blog/single.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/blog/single.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -253,7 +255,9 @@
       <workItem from="1601273799424" duration="11000" />
       <workItem from="1601273840329" duration="21301000" />
       <workItem from="1601361060721" duration="22912000" />
-      <workItem from="1601449742136" duration="21046000" />
+      <workItem from="1601449742136" duration="21153000" />
+      <workItem from="1601532486598" duration="19433000" />
+      <workItem from="1601619041143" duration="773000" />
     </task>
     <servers />
   </component>
@@ -320,22 +324,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600761376510" />
-    <state width="1877" height="58" key="GridCell.Tab.0.bottom" timestamp="1600782180624">
+    <state width="1877" height="57" key="GridCell.Tab.0.bottom" timestamp="1601474060318">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="58" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600782180624" />
-    <state width="1877" height="58" key="GridCell.Tab.0.center" timestamp="1600782180624">
+    <state width="1877" height="57" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601474060318" />
+    <state width="1877" height="57" key="GridCell.Tab.0.center" timestamp="1601474060317">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="58" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600782180624" />
-    <state width="1877" height="58" key="GridCell.Tab.0.left" timestamp="1600782180623">
+    <state width="1877" height="57" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601474060317" />
+    <state width="1877" height="57" key="GridCell.Tab.0.left" timestamp="1601474060317">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="58" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600782180623" />
-    <state width="1877" height="58" key="GridCell.Tab.0.right" timestamp="1600782180624">
+    <state width="1877" height="57" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601474060317" />
+    <state width="1877" height="57" key="GridCell.Tab.0.right" timestamp="1601474060318">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="58" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600782180624" />
+    <state width="1877" height="57" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601474060318" />
     <state x="775" y="243" key="NewPhpClassDialog" timestamp="1600676833510">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -356,9 +360,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="136" y="244" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601470862548" />
-    <state x="1073" y="204" width="672" height="678" key="search.everywhere.popup" timestamp="1601473249208">
+    <state x="1073" y="204" width="672" height="678" key="search.everywhere.popup" timestamp="1601619384776">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1073" y="204" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601473249208" />
+    <state x="1073" y="204" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601619384776" />
   </component>
 </project>

@@ -56,9 +56,11 @@ Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
 
     });
 
-    Route::post('/comment/store', [CommentAPIController::class, 'store'])->name('api.comment.store');
+
 
 });
+
+Route::post('/comment/store', [CommentAPIController::class, 'store'])->name('api.comment.store');
 
 //public routes
 Route::post('/login', [UserAPIController::class, 'login'])->name('api.user.login');

@@ -63,8 +63,12 @@ Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
 
 //Public routes
 //    Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::view('/blog', 'blog.index');
 
 Route::get('/blog/single/{id}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('blog/single/{id}', function ($id){
+    return view('blog.single', ['id' => $id]);
+});
 Route::post('/blog/single/{id}', [CommentController::class, 'store'])->name('comment.store');
 Route::post('/reply/store', [CommentController::class, 'replyStore'])->name('comment.replyStore');
 

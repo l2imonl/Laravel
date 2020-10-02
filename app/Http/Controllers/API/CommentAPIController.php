@@ -51,11 +51,11 @@ class CommentAPIController extends Controller
             'body' => 'required',
         ));
 
-        if (!Auth::check()) {
-            return response()->json([
-                'faild' => 'login first',
-            ]);
-        }
+//        if (!Auth::check()) {
+//            return response()->json([
+//                'faild' => 'login first',
+//            ]);
+//        }
 
         $comment = new Comment();
         $comment->user_id = Auth::user()->id;

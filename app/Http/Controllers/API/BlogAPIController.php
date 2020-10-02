@@ -51,8 +51,8 @@ class BlogAPIController extends Controller
     public function show($id)
     {
         return response()->json([
-          'posts' => new PostResource(Post::find($id)),
-          'comments' => new CommentCollection(Post::find($id)->comments),
+          'post' => new PostResource(Post::find($id)),
+          'comment' => new CommentCollection(Post::find($id)->comments),
         ]);
     }
 
