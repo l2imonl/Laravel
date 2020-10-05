@@ -13,8 +13,6 @@
                     </p>
                 </article>
                 <hr/>
-
-
                 <div class="col-12 text-center">
 <!--                    {{ $blog->links("pagination::bootstrap-4") }}-->
                 </div>

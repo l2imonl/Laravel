@@ -57,7 +57,6 @@ Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
     });
 
 
-
 });
 
 Route::post('/comment/store', [CommentAPIController::class, 'store'])->name('api.comment.store');
@@ -68,6 +67,3 @@ Route::get('/blog', [BlogAPIController::class, 'index'])->name('api.blog.index')
 
 Route::get('/blog/single/{id}', [BlogAPIController::class, 'show'])->name('api.blog.show');
 Route::post('/register', [UserAPIController::class, 'register'])->name('api.user.register');
-
-
-

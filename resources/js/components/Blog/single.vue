@@ -57,16 +57,16 @@ export default {
                 .catch(error => console.log(error));
             this.loading = false;
         },
-        postComment: function (e){
+        postComment: function (){
             axios.post('/api/comment/store',{
                 body: this.commentBody,
                 parent_id: this.parent_id,
                 post_id: this.post_id,
             }).then((res) => {
                 console.warn(res);
+                this.fetchPost();
             })
             .catch(error => console.log(error));
-            e.preventDefault();
         },
     }
 
