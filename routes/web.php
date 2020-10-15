@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//    Route::get('/', [BlogController::class, 'index']);
 Route::view('/', 'blog.index');
 
 Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
@@ -62,8 +61,10 @@ Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
 });
 
 //Public routes
-//    Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+
 Route::view('/blog', 'blog.index');
+
+Route::view('/login', 'login')->name('login');
 
 Route::get('/blog/single/{id}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('blog/single/{id}', function ($id){
@@ -71,7 +72,3 @@ Route::get('blog/single/{id}', function ($id){
 });
 Route::post('/blog/single/{id}', [CommentController::class, 'store'])->name('comment.store');
 Route::post('/reply/store', [CommentController::class, 'replyStore'])->name('comment.replyStore');
-
-//auth Routes
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [BlogController::class, 'index'])->name('dashboard');
-

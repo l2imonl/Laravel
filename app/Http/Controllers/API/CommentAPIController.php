@@ -47,15 +47,15 @@ class CommentAPIController extends Controller
      */
     public function store(Request $request)
     {
+        $jwt = $request->bearerToken();
+
+        $tokenParts = explode('.', $jwt);
+        $header = base64_decode($tokenParts[0]);
+        $payload = base64_decode($tokenParts[1]);
+
         $this->validate($request, array(
             'body' => 'required',
         ));
-
-        if (!Auth::check()) {
-            return response()->json([
-                'faild' => 'login first',
-            ]);
-        }
 
         $comment = new Comment();
         $comment->user_id = Auth::user()->id;

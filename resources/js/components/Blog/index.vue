@@ -2,6 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
+                <h1>{{ jwt }}</h1>
                 <article class="post-preview" v-for="post in blog">
                     <a v-bind:href="'blog/single/' + post.id">
                         <h2 class="post-title">{{ post.title }}</h2>
@@ -14,7 +15,7 @@
                 </article>
                 <hr/>
                 <div class="col-12 text-center">
-<!--                    {{ $blog->links("pagination::bootstrap-4") }}-->
+                    <!--                    {{ $blog->links("pagination::bootstrap-4") }}-->
                 </div>
                 <br/>
             </div>
@@ -22,21 +23,26 @@
     </div>
 </template>
 <script>
+import {mapGetters} from "vuex";
+
 export default {
     data: function () {
-        return{
+        return {
             blog: [],
         }
     },
+    computed: {
+        ...mapGetters({jwt: "getToken"})
+    },
     mounted() {
         this.loadBlog();
-    },methods: {
-        loadBlog: function (){
+    }, methods: {
+        loadBlog: function () {
             axios.get('api/blog?trim=true&user=true')
-                .then((response) =>{
+                .then((response) => {
                     this.blog = response.data.data;
                 })
-                .catch(function (error){
+                .catch(function (error) {
                     console.log(error);
                 });
         }

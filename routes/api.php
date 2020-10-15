@@ -4,6 +4,7 @@ use App\Http\Controllers\API\BlogAPIController;
 use App\Http\Controllers\API\CommentAPIController;
 use App\Http\Controllers\API\PostAPIController;
 use App\Http\Controllers\API\UserAPIController;
+use App\Http\Controllers\API\LoginAPIController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\User as UserResource;
@@ -21,7 +22,7 @@ use App\Http\Resources\UserCollection;
 */
 
 
-Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
+Route::group(['middleware' => 'jwt.validate'], function () {
 
     //Admin routes
     Route::group(['middleware' => 'role:admin'], function () {
@@ -62,7 +63,7 @@ Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
 Route::post('/comment/store', [CommentAPIController::class, 'store'])->name('api.comment.store');
 
 //public routes
-Route::post('/login', [UserAPIController::class, 'login'])->name('api.user.login');
+Route::post('/login', [LoginAPIController::class, 'login'])->name('api.user.login');
 Route::get('/blog', [BlogAPIController::class, 'index'])->name('api.blog.index');
 
 Route::get('/blog/single/{id}', [BlogAPIController::class, 'show'])->name('api.blog.show');

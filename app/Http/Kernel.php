@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\APIRoleCheck;
+use App\Http\Middleware\JwtValidation;
 use App\Http\Middleware\MyTokenCheck;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\RoleMiddleware::class,
         'myTokenCheck' => MyTokenCheck::class,
         'apiRole' => APIRoleCheck::class,
+        'jwt.validate' => JwtValidation::class,
     ];
 }
