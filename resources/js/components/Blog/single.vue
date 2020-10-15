@@ -1,7 +1,6 @@
 <template>
     <div class="container" :class="{'loading': loading}">
         <article>
-
             <div class="row" v-if="data.post">
                 <div class="col-lg-8 col-md-10 mx-auto" v-html="data.post.body">
                 </div>

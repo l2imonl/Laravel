@@ -53,12 +53,15 @@ class CommentAPIController extends Controller
         $header = base64_decode($tokenParts[0]);
         $payload = base64_decode($tokenParts[1]);
 
+        //get id from Token
+        $id = json_decode($payload)->user_id;
+
         $this->validate($request, array(
             'body' => 'required',
         ));
 
         $comment = new Comment();
-        $comment->user_id = Auth::user()->id;
+        $comment->user_id = $id;
         $comment->body = $request->body;
         $comment->post_id = $request->post_id;
         $comment->parent_id = $request->parent_id;
