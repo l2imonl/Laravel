@@ -18,6 +18,8 @@ class Comment extends JsonResource
         if ($request->replies){
             return [
                 'name' => $this->user->name,
+                'id' => $this->id,
+                'user_profile_pic' => $this->user->profile_photo_url,
                 'body' => $this->body,
                 'replies' => new CommentCollection($this->replies),
                 'created_at' => $this->created_at,

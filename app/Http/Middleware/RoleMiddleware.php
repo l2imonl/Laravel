@@ -16,12 +16,24 @@ class RoleMiddleware
      */
     public function handle($request, Closure $next, $role, $permission = null)
     {
-        if (!$request->user()->hasRole($role)) {
-            abort(404);
+        $jwt = $request->bearerToken();
+
+        //split and decode the jwt
+        $tokenParts = explode('.', $jwt);
+        $header = base64_decode($tokenParts[0]);
+        $payload = base64_decode($tokenParts[1]);
+        $givenSignatur = $tokenParts[2];
+
+        $userRoles = json_decode($payload)->roles->data;
+
+        foreach ($userRoles as $roles) {
+            if ($role === $roles->slug || $roles->slug === 'admin') {
+                return $next($request);
+            }
         }
-        if ($permission !== null && !$request->user()->can($permission)) {
-            abort(404);
-        }
-        return $next($request);
+
+        return response()->json([
+            'failed' => 'You dont have the permission',
+        ]);
     }
 }

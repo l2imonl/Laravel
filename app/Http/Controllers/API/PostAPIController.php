@@ -47,15 +47,20 @@ class PostAPIController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|max:225',
-            'body' => 'required',
-        ]);
+
+        $jwt = $request->bearerToken();
+
+        $tokenParts = explode('.', $jwt);
+        $header = base64_decode($tokenParts[0]);
+        $payload = base64_decode($tokenParts[1]);
+
+        //get id from Token
+        $id = json_decode($payload)->user_id;
 
         $post = new Post;
         $post->title = $request->title;
         $post->body = $request->body;
-        $post->user_id = Auth::user()->id;
+        $post->user_id = $id;
         $post->save();
 
         //Image
@@ -157,5 +162,11 @@ class PostAPIController extends Controller
                 'failed' => 'can\'t delete post',
             ]);
         }
+    }
+
+    public function headerImage(Request $request){
+
+
+
     }
 }

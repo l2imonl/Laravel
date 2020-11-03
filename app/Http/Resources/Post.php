@@ -48,6 +48,11 @@ class Post extends JsonResource
             ];
         }
         $return += ['created_at' => date('d.m.Y', strtotime($this->created_at)),];
+        if($this->heading_image_path){
+            $return += ['heading_image_url' => 'http://jettest.test/storage/'.$this->heading_image_path];
+        }else{
+            $return += ['heading_image_url' => 'http://jettest.test/storage/0'.rand(1,5).'.jpg'];
+        }
         return $return;
     }
 }

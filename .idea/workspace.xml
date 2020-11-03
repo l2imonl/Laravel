@@ -21,8 +21,13 @@
   <component name="ChangeListManager">
     <list default="true" id="812c3b5b-43cc-4450-8333-26117b70e512" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/CommentAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/CommentAPIController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Blog/single.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Blog/single.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/UserAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/UserAPIController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/JwtValidation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/JwtValidation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RoleMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RoleMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Comment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/User.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,19 +195,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\laragon\www\JetTest\resources\js\components" />
-      <recent name="C:\laragon\www\JetTest\app\Http\Controllers\API" />
-      <recent name="C:\laragon\www\JetTest\resources\js\components\Blog" />
-      <recent name="C:\laragon\www\JetTest\app\Http\Controllers" />
-      <recent name="C:\laragon\www\JetTest\app\Http\Controllers\APIController" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\laragon\www\JetTest\public\js" />
       <recent name="C:\laragon\www\JetTest\app\Http\Middleware" />
       <recent name="C:\laragon\www\JetTest\database\seeders" />
       <recent name="C:\laragon\www\JetTest\resources\views\layouts" />
       <recent name="C:\laragon\www\JetTest\resources\views\admin" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\JetTest\resources\js\components" />
+      <recent name="C:\laragon\www\JetTest\app\Http\Controllers\API" />
+      <recent name="C:\laragon\www\JetTest\resources\js\components\Blog" />
+      <recent name="C:\laragon\www\JetTest\app\Http\Controllers" />
+      <recent name="C:\laragon\www\JetTest\app\Http\Controllers\APIController" />
     </key>
   </component>
   <component name="RunManager" selected="PHP Script.HtmlTrim.php">
@@ -253,7 +258,12 @@
       <workItem from="1602056984329" duration="12894000" />
       <workItem from="1602137489086" duration="16595000" />
       <workItem from="1602656297933" duration="15070000" />
-      <workItem from="1602742455651" duration="7072000" />
+      <workItem from="1602742455651" duration="7494000" />
+      <workItem from="1602828629735" duration="7793000" />
+      <workItem from="1603433734447" duration="5324000" />
+      <workItem from="1603782977831" duration="8029000" />
+      <workItem from="1603869561770" duration="13158000" />
+      <workItem from="1604387807213" duration="12573000" />
     </task>
     <servers />
   </component>
@@ -308,10 +318,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="808" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600945839879" />
-    <state x="676" y="290" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1601888270923">
+    <state x="676" y="290" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1604388984679">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="676" y="290" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601888270923" />
+    <state x="676" y="290" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604388984679" />
     <state x="629" y="298" width="662" height="479" key="EditFileWatcherDialog" timestamp="1600261938400">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -352,13 +362,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600772813932" />
+    <state x="677" y="291" key="refactoring.ChangeSignatureDialog" timestamp="1604388622639">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="677" y="291" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604388622639" />
     <state x="136" y="244" key="run.anything.popup" timestamp="1601470862548">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="136" y="244" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601470862548" />
-    <state x="20" y="203" width="672" height="678" key="search.everywhere.popup" timestamp="1602766568127">
+    <state x="20" y="203" width="672" height="678" key="search.everywhere.popup" timestamp="1604398871521">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="20" y="203" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1602766568127" />
+    <state x="20" y="203" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604398871521" />
   </component>
 </project>

@@ -179,36 +179,46 @@ class UserAPIController extends Controller
      */
     public function updateRole(Request $request, $id)
     {
+
+        $jwt = $request->bearerToken();
+
+        $secret = getenv('SECRET');
+
+        //split and decode the jwt
+        $tokenParts = explode('.', $jwt);
+        $header = base64_decode($tokenParts[0]);
+        $payload = base64_decode($tokenParts[1]);
+        $givenSignatur = $tokenParts[2];
+
+
+
+
         $user = User::find($id);
 
         $role = Role::find($request->role_id);
 
-        if ($role->slug == 'admin' && !Auth::user()->hasRole('admin')) {
-            return response()->json([
-                'failed' => 'you need Admin Permissions',
-            ]);
-        } else {
-            try {
-                if ($request->promote) {
-                    $user->roles()->attach($role);
-                } else {
-                    $user->roles()->detach($role);
-                }
-            } catch (Exception $e) {
-                return response()->json([
-                    'error' => $e,
-                ]);
+
+        try {
+            if ($request->promote) {
+                $user->roles()->attach($role);
+            } else {
+                $user->roles()->detach($role);
             }
-
-            $user->save();
-
+        } catch (Exception $e) {
             return response()->json([
-                'accept' => 'Role updated',
-                'promoted' => $request->promote,
-                'user' => $user,
-                'role' => $role,
+                'error' => $e,
             ]);
         }
+
+        $user->save();
+
+        return response()->json([
+            'accept' => 'Role updated',
+            'promoted' => $request->promote,
+            'user' => $user,
+            'role' => $role,
+        ]);
+
     }
 
 //    private function getTokenFromRequest(Request $request)

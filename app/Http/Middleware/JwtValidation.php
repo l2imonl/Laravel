@@ -22,6 +22,12 @@ class JwtValidation
 
         $jwt = $request->bearerToken();
 
+        if(!$jwt){
+            return response()->json([
+                'failed' => 'no bearerToken',
+            ]);
+        }
+
         $secret = getenv('SECRET');
 
         //split and decode the jwt
