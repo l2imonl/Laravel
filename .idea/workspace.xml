@@ -20,14 +20,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="812c3b5b-43cc-4450-8333-26117b70e512" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/API/MailVerifyAPIController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/API/RegisterAPIController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/JwtOwnership.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/CustomEmailNotification.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/mail/signup-email.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/notifications/email.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/LoginAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/LoginAPIController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/UserAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/UserAPIController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/APIRoleCheck.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/APIRoleCheck.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Middleware/JwtValidation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/JwtValidation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RoleMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RoleMiddleware.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Comment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Role.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +195,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../bin/php/php-7.4.10-Win32-vc15-x64" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Laravel-Admin-User-Layouts-master" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -203,11 +210,11 @@
       <recent name="C:\laragon\www\JetTest\resources\views\admin" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\laragon\www\JetTest\resources\js\components" />
       <recent name="C:\laragon\www\JetTest\app\Http\Controllers\API" />
+      <recent name="C:\laragon\www\JetTest\app\Models" />
+      <recent name="C:\laragon\www\JetTest\resources\js\components" />
       <recent name="C:\laragon\www\JetTest\resources\js\components\Blog" />
       <recent name="C:\laragon\www\JetTest\app\Http\Controllers" />
-      <recent name="C:\laragon\www\JetTest\app\Http\Controllers\APIController" />
     </key>
   </component>
   <component name="RunManager" selected="PHP Script.HtmlTrim.php">
@@ -264,6 +271,29 @@
       <workItem from="1603782977831" duration="8029000" />
       <workItem from="1603869561770" duration="13158000" />
       <workItem from="1604387807213" duration="12573000" />
+      <workItem from="1604473854962" duration="7736000" />
+      <workItem from="1604560147852" duration="3739000" />
+      <workItem from="1604646461399" duration="15351000" />
+      <workItem from="1604992153256" duration="10591000" />
+      <workItem from="1605078582357" duration="262000" />
+      <workItem from="1605078889606" duration="6579000" />
+      <workItem from="1605165174592" duration="7116000" />
+      <workItem from="1605251536008" duration="7125000" />
+      <workItem from="1605597524099" duration="3727000" />
+      <workItem from="1605683232587" duration="4273000" />
+      <workItem from="1605770171378" duration="606000" />
+      <workItem from="1605856125823" duration="622000" />
+      <workItem from="1606201644229" duration="623000" />
+      <workItem from="1606289290359" duration="2029000" />
+      <workItem from="1606374754226" duration="1189000" />
+      <workItem from="1606460861576" duration="633000" />
+      <workItem from="1606471320556" duration="1497000" />
+      <workItem from="1606806567809" duration="611000" />
+      <workItem from="1606814670722" duration="4415000" />
+      <workItem from="1606831417128" duration="1845000" />
+      <workItem from="1606895625590" duration="3932000" />
+      <workItem from="1606979421973" duration="9926000" />
+      <workItem from="1607065828841" duration="1668000" />
     </task>
     <servers />
   </component>
@@ -318,18 +348,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="808" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600945839879" />
-    <state x="676" y="290" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1604388984679">
+    <state x="676" y="290" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1604993055481">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="676" y="290" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604388984679" />
+    <state x="676" y="290" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604993055481" />
     <state x="629" y="298" width="662" height="479" key="EditFileWatcherDialog" timestamp="1600261938400">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="629" y="298" width="662" height="479" key="EditFileWatcherDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600261938400" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1600761376510">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1606979808472">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600761376510" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1606979808472" />
     <state width="1877" height="57" key="GridCell.Tab.0.bottom" timestamp="1601646434407">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -346,10 +376,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="57" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601646434406" />
-    <state x="775" y="243" key="NewPhpClassDialog" timestamp="1602056166483">
+    <state x="775" y="243" key="NewPhpClassDialog" timestamp="1604660493908">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="775" y="243" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602056166483" />
+    <state x="775" y="243" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604660493908" />
     <state x="727" y="511" key="NewPhpFileDialog" timestamp="1602053751425">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -370,9 +400,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="136" y="244" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601470862548" />
-    <state x="20" y="203" width="672" height="678" key="search.everywhere.popup" timestamp="1604398871521">
+    <state x="350" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1606993226885">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="20" y="203" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604398871521" />
+    <state x="350" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1606993226885" />
   </component>
 </project>

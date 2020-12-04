@@ -24,7 +24,7 @@ class LoginAPIController extends Controller
         }
         return response()->json([
            'failed' => 'login failed'
-        ]);
+        ],401);
     }
 
     private function createJWT()
@@ -40,7 +40,7 @@ class LoginAPIController extends Controller
             'user_id' => Auth::User()->getAuthIdentifier(),
             'roles' => new RoleCollection(Auth::User()->roles),
             'iat' => (new \DateTime)->getTimestamp(),
-            'exp' => (new \DateTime)->getTimestamp() + 180,
+            'exp' => (new \DateTime)->getTimestamp() + 600,
         ]);
 
         $base64Header = (new EncodeHelper)->base64UrlEncode($header);
@@ -52,7 +52,11 @@ class LoginAPIController extends Controller
         return $jwt;
     }
 
-
+    public function auth(){
+        return response()->json([
+            'success' => 'JWT is valid'
+        ]);
+    }
 
     /**
      * Display a listing of the resource.

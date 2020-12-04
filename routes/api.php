@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\API\BlogAPIController;
 use App\Http\Controllers\API\CommentAPIController;
+use App\Http\Controllers\API\MailVerifyAPIController;
 use App\Http\Controllers\API\PostAPIController;
+use App\Http\Controllers\API\RegisterAPIController;
 use App\Http\Controllers\API\UserAPIController;
 use App\Http\Controllers\API\LoginAPIController;
 use Illuminate\Http\Request;
@@ -23,6 +25,7 @@ use App\Http\Resources\UserCollection;
 
 
 Route::group(['middleware' => 'jwt.validate'], function () {
+    Route::get('/auth', [LoginAPIController::class,'auth'])->name('api.login.check');
 
     //Admin routes
     Route::group(['middleware' => 'role:admin'], function () {
@@ -47,6 +50,7 @@ Route::group(['middleware' => 'jwt.validate'], function () {
 
     });
 
+
     //Creator routes
     Route::group(['middleware' => 'role:creator'], function () {
         Route::post('/post/store', [PostAPIController::class, 'store'])->name('api.post.store');
@@ -56,9 +60,18 @@ Route::group(['middleware' => 'jwt.validate'], function () {
     Route::group(['middleware' => 'role:user'], function () {
 
     });
+    //Routes for ownercontent
+    Route::group(['middleware' => 'jwt.ownership'], function () {
+        Route::get('/user/{id}', [UserAPIController::class, 'show'])->name('api.user.show');
+    });
 
+    Route::get('/users/allroles', [UserAPIController::class, 'allRoles'])->name('api.user.allroles');
 
 });
+
+Route::post('/register', [RegisterAPIController::class, 'register'])->name('api.register.register');
+
+Route::post('/verify/{signatur}/{id}', [MailVerifyAPIController::class, 'verify'])->name('api.verify.verify');
 
 Route::post('/comment/store', [CommentAPIController::class, 'store'])->name('api.comment.store');
 

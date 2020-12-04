@@ -36,9 +36,9 @@ class JwtValidation
         $payload = base64_decode($tokenParts[1]);
         $givenSignatur = $tokenParts[2];
 
-        //get expiration time out of payload
+        //get expiration time out of payloads
         $expiration = Carbon::createFromTimestamp(json_decode($payload)->exp);
-        $tokenExpired = (Carbon::now()->diffInSeconds($expiration, false) > 0);
+        $tokenExpired = (Carbon::now()->diffInSeconds($expiration, false) < 0);
 
         //rebuild a signatur based on header and payload
         $base64UrlHeader = (new EncodeHelper)->base64UrlEncode($header);
@@ -49,13 +49,18 @@ class JwtValidation
         //check if signatur is valid
         $isSignaturValid = (!$base64UrlSignatur === $givenSignatur);
 
+        if($tokenExpired){
+            return response()->json([
+                'failed' => 'token is expired',
+            ],401);
+        }
+
         if ($isSignaturValid) {
             return response()->json([
                 'failed' => 'Signatur is invalid',
             ]);
         }
         return $next($request);
-
     }
 
 }

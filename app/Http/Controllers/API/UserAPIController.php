@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RoleCollection;
 use App\Http\Resources\UserCollection;
 use App\Models\MyToken;
 use App\Models\Role;
@@ -31,19 +32,18 @@ class UserAPIController extends Controller
                 'failed' => 'can\'t paginate Users',
             ]);
         }
-
     }
 
-    public function login()
-    {
-        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
-            $user = Auth::user();
-            $accessToken = Auth::user()->createToken('authToken' . $user->name)->plainTextToken;
-            return response()->json(['user' => $user, 'success' => $accessToken]);
-        } else {
-            return response()->json(['error' => 'Unauthorised'], 401);
-        }
-    }
+//    public function login()
+//    {
+//        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
+//            $user = Auth::user();
+//            $accessToken = Auth::user()->createToken('authToken' . $user->name)->plainTextToken;
+//            return response()->json(['user' => $user, 'success' => $accessToken]);
+//        } else {
+//            return response()->json(['error' => 'Unauthorised'], 401);
+//        }
+//    }
 
     public function register(Request $request)
     {
@@ -54,19 +54,20 @@ class UserAPIController extends Controller
             'password' => 'required'
         ]);
 
-        event(new Registered($user = User::create(['name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->pasword)])));
+        try {
+            User::create(['name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->pasword)])->sendEmailVerificationNotification();
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => 'can u see this?'
+            ], $e->getCode());
+        }
 
-
-//        $user = User::create(['name' => $request->name,
-//            'email' => $request->email,
-//            'password' => bcrypt($request->pasword)]);
-//        $user->roles()->attach(3);
 
         return response()->json([
             'success' => 'User created',
-            'newUser' => new UserResource($user),
+//            'newUser' => new UserResource($user),
         ]);
     }
 
@@ -131,8 +132,12 @@ class UserAPIController extends Controller
     {
         $user = User::find($id);
         if ($user) {
-            $user->name = $request->name;
-            $user->email = $request->email;
+            if ($request->name)
+                $user->name = $request->name;
+            if ($request->email)
+                $user->email = $request->email;
+            if ($request->profile_photo)
+                $user->updateProfilePhoto($request->profile_photo);
             $user->save();
 
             return response()->json([
@@ -180,26 +185,12 @@ class UserAPIController extends Controller
     public function updateRole(Request $request, $id)
     {
 
-        $jwt = $request->bearerToken();
-
-        $secret = getenv('SECRET');
-
-        //split and decode the jwt
-        $tokenParts = explode('.', $jwt);
-        $header = base64_decode($tokenParts[0]);
-        $payload = base64_decode($tokenParts[1]);
-        $givenSignatur = $tokenParts[2];
-
-
-
-
         $user = User::find($id);
 
         $role = Role::find($request->role_id);
 
-
         try {
-            if ($request->promote) {
+            if ($request->promote === 'true') {
                 $user->roles()->attach($role);
             } else {
                 $user->roles()->detach($role);
@@ -221,21 +212,9 @@ class UserAPIController extends Controller
 
     }
 
-//    private function getTokenFromRequest(Request $request)
-//    {
-//        $token = $request->query('token');
-//        if (empty($token)) {
-//            $token = $request->input('token');
-//        }
-//        if (empty($token)) {
-//            $token = $request->bearerToken();
-//        }
-//        return $token;
-//    }
-//
-//    private function getUserFromToken($token)
-//    {
-//        $token = per::findToken($token);
-//        return $token->tokenable;
-//    }
+    public function allRoles()
+    {
+        return new RoleCollection(Role::all());
+    }
+
 }

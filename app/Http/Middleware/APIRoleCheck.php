@@ -20,7 +20,7 @@ class APIRoleCheck
     {
         $token = $this->getTokenFromRequest($request);
         $user = $this->getUserFromToken($token);
-        if ($user->hasRole($role)) {
+        if ($user->hasRole('admin') || $user->hasRole($role)) {
             return $next($request);
         }
     }

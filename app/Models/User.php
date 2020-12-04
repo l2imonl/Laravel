@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -106,5 +107,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function comments()
     {
         return $this->hasMany(Comment::class, 'user_id');
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $secret = getenv('EMAIL_VERIFICATION_KEY');
+
+        $data = [
+            'name' => $this->name,
+            'id' => $this->id,
+            'verification_code' => hash_hmac('sha256',$this->id,$secret,false),
+        ];
+
+        Mail::to($this->email)->send(new CustomEmailNotification($data));
     }
 }

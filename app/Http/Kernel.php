@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\APIRoleCheck;
+use App\Http\Middleware\JwtOwnership;
 use App\Http\Middleware\JwtValidation;
 use App\Http\Middleware\MyTokenCheck;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -71,5 +72,6 @@ class Kernel extends HttpKernel
         'myTokenCheck' => MyTokenCheck::class,
         'apiRole' => APIRoleCheck::class,
         'jwt.validate' => JwtValidation::class,
+        'jwt.ownership' => JwtOwnership::class,
     ];
 }
